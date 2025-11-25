@@ -79,7 +79,7 @@ jobs:
         run: bun run build:handlebars
 
       - name: Zip Build
-        run: cd dist/handlebars && zip -r ../email-v${{ needs.get-next-version.outputs.new_tag_version }}.zip . && cd ..
+        run: cd dist/handlebars && zip -r ../email-v${{ needs.get-next-version.outputs.new_tag_version }}.zip . && cd ../..
 
       - name: Release
         env:
