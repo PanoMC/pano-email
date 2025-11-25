@@ -18,7 +18,7 @@
       {
         "assets": [
           {
-            "path": "build/libs/*.jar",
+            "path": "*.zip",
             "label": false
           },
           {
@@ -29,5 +29,5 @@
       }
     ]
   ],
-  "repositoryUrl": "https://github.com/panomc/pano.git"
+  "repositoryUrl": "https://github.com/panomc/pano-email.git"
 }
