@@ -9,6 +9,11 @@ interface EmailModule {
   [key: string]: any;
 }
 
+// Helper function to create translation handlebars syntax
+function t(key: string, fallback: string): string {
+  return `{{#if translation.${key}}}{{translation.${key}}}{{else}}${fallback}{{/if}}`;
+}
+
 async function buildHandlebars() {
   const outputDir = path.join(process.cwd(), 'dist', 'handlebars');
   
@@ -19,7 +24,7 @@ async function buildHandlebars() {
 
   // Email dosyalarını bul
   const emailFiles = await glob('emails/**/*.tsx', {
-    ignore: ['**/static/**', '**/*.test.tsx', '**/*.spec.tsx'],
+    ignore: ['**/static/**', '**/*.test.tsx', '**/*.spec.tsx', '**/components/**'],
   });
 
   console.log(`Found ${emailFiles.length} email templates`);
@@ -45,7 +50,7 @@ async function buildHandlebars() {
       const element = React.createElement(EmailComponent, previewProps);
       const html = await render(element);
 
-      // Props'ları Handlebars değişkenlerine çevir
+      // Handlebars HTML'i başlat
       let handlebarsHtml = html;
       
       // Preview props'larındaki değerleri Handlebars syntax'ına çevir
@@ -65,6 +70,11 @@ async function buildHandlebars() {
             new RegExp(`="${escapeRegex(stringValue)}"`, 'g'),
             `="{{${key}}}"`
           );
+          // href attribute'larındaki değerleri değiştir
+          handlebarsHtml = handlebarsHtml.replace(
+            new RegExp(`href="${escapeRegex(stringValue)}"`, 'g'),
+            `href="{{${key}}}"`
+          );
           // HTML içeriğindeki değerleri değiştir (yalnızca tam eşleşme)
           handlebarsHtml = handlebarsHtml.replace(
             new RegExp(`>${escapeRegex(stringValue)}<`, 'g'),
@@ -77,6 +87,13 @@ async function buildHandlebars() {
           );
         }
       });
+
+      // Translation placeholder'larını handlebars syntax'ına çevir
+      // {{TRANSLATION:key:fallback}} formatını {{#if translation.key}}{{translation.key}}{{else}}fallback{{/if}} formatına çevir
+      handlebarsHtml = handlebarsHtml.replace(
+        /\{\{TRANSLATION:([^:]+):([^}]+)\}\}/g,
+        '{{#if translation.$1}}{{translation.$1}}{{else}}$2{{/if}}'
+      );
 
       // Dosya adını oluştur
       const fileName = path.basename(emailFile, '.tsx');
@@ -101,4 +118,3 @@ function escapeRegex(str: string): string {
 }
 
 buildHandlebars().catch(console.error);
-
