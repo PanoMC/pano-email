@@ -16,7 +16,7 @@ import {
 interface ActivationEmailProps {
   username?: string;
   serverName?: string;
-  serverLogo?: string;
+  websiteLogo?: string;
   activationLink?: string;
   activationCode?: string;
 }
@@ -28,7 +28,7 @@ const baseUrl = process.env.VERCEL_URL
 export const ActivationEmail = ({
   username,
   serverName,
-  serverLogo,
+  websiteLogo,
   activationLink,
   activationCode,
 }: ActivationEmailProps) => (
@@ -38,10 +38,10 @@ export const ActivationEmail = ({
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
-          {serverLogo && (
+          {websiteLogo && (
             <Section className="mb-[32px] text-center">
               <Img
-                src={'{{serverLogo}}'}
+                src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
                 alt={'{{serverName}}'}
@@ -106,7 +106,7 @@ export const ActivationEmail = ({
 ActivationEmail.PreviewProps = {
   username: 'Steve',
   serverName: 'MyMinecraft Server',
-  serverLogo: `${baseUrl}/static/server-logo.png`,
+  websiteLogo: `${baseUrl}/static/server-logo.png`,
   activationLink: 'https://example.com/activate?token=abc123',
   activationCode: 'ABC123XYZ',
 } as ActivationEmailProps;

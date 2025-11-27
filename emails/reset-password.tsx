@@ -15,7 +15,7 @@ import {
 interface ResetPasswordEmailProps {
   username?: string;
   serverName?: string;
-  serverLogo?: string;
+  websiteLogo?: string;
   resetLink?: string;
   resetCode?: string;
   expiresIn?: string;
@@ -28,7 +28,7 @@ const baseUrl = process.env.VERCEL_URL
 export const ResetPasswordEmail = ({
   username,
   serverName,
-  serverLogo,
+  websiteLogo,
   resetLink,
   resetCode,
   expiresIn,
@@ -39,10 +39,10 @@ export const ResetPasswordEmail = ({
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
-          {serverLogo && (
+          {websiteLogo && (
             <Section className="mb-[32px] text-center">
               <Img
-                src={serverLogo}
+                src={websiteLogo}
                 width="80"
                 height="80"
                 alt={serverName || 'Server Logo'}
@@ -118,7 +118,7 @@ export const ResetPasswordEmail = ({
 ResetPasswordEmail.PreviewProps = {
   username: 'Steve',
   serverName: 'MyMinecraft Server',
-  serverLogo: `${baseUrl}/static/server-logo.png`,
+  websiteLogo: `${baseUrl}/static/server-logo.png`,
   resetLink: 'https://example.com/reset-password?token=abc123',
   resetCode: 'ABC123XYZ',
   expiresIn: '1 hour',

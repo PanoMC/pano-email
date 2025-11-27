@@ -14,7 +14,7 @@ import {
 interface LoginEmailProps {
   username?: string;
   serverName?: string;
-  serverLogo?: string;
+  websiteLogo?: string;
   loginTime?: string;
   loginLocation?: string;
   loginIp?: string;
@@ -29,7 +29,7 @@ const baseUrl = process.env.VERCEL_URL
 export const LoginEmail = ({
   username,
   serverName,
-  serverLogo,
+  websiteLogo,
   loginTime,
   loginLocation,
   loginIp,
@@ -42,10 +42,10 @@ export const LoginEmail = ({
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
-          {serverLogo && (
+          {websiteLogo && (
             <Section className="mb-[32px] text-center">
               <Img
-                src={'{{serverLogo}}'}
+                src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
                 alt={'{{serverName}}'}
@@ -127,7 +127,7 @@ export const LoginEmail = ({
 LoginEmail.PreviewProps = {
   username: 'Steve',
   serverName: 'MyMinecraft Server',
-  serverLogo: `${baseUrl}/static/server-logo.png`,
+  websiteLogo: `${baseUrl}/static/server-logo.png`,
   loginTime: '2024-01-15 14:30:00 UTC',
   loginLocation: 'Istanbul, Turkey',
   loginIp: '192.168.1.1',

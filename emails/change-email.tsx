@@ -15,7 +15,7 @@ import {
 interface ChangeEmailEmailProps {
   username?: string;
   serverName?: string;
-  serverLogo?: string;
+  websiteLogo?: string;
   newEmail?: string;
   confirmationLink?: string;
   confirmationCode?: string;
@@ -28,7 +28,7 @@ const baseUrl = process.env.VERCEL_URL
 export const ChangeEmailEmail = ({
   username,
   serverName,
-  serverLogo,
+  websiteLogo,
   newEmail,
   confirmationLink,
   confirmationCode,
@@ -39,10 +39,10 @@ export const ChangeEmailEmail = ({
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
-          {serverLogo && (
+          {websiteLogo && (
             <Section className="mb-[32px] text-center">
               <Img
-                src={'{{serverLogo}}'}
+                src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
                 alt={'{{serverName}}'}
@@ -115,7 +115,7 @@ export const ChangeEmailEmail = ({
 ChangeEmailEmail.PreviewProps = {
   username: 'Steve',
   serverName: 'MyMinecraft Server',
-  serverLogo: `${baseUrl}/static/server-logo.png`,
+  websiteLogo: `${baseUrl}/static/server-logo.png`,
   newEmail: 'newemail@example.com',
   confirmationLink: 'https://example.com/confirm-email?token=abc123',
   confirmationCode: 'ABC123XYZ',
