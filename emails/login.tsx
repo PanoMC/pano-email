@@ -13,7 +13,7 @@ import {
 
 interface LoginEmailProps {
   username?: string;
-  serverName?: string;
+  websiteName?: string;
   websiteLogo?: string;
   loginTime?: string;
   loginLocation?: string;
@@ -28,7 +28,7 @@ const baseUrl = process.env.VERCEL_URL
 
 export const LoginEmail = ({
   username,
-  serverName,
+  websiteName,
   websiteLogo,
   loginTime,
   loginLocation,
@@ -38,7 +38,7 @@ export const LoginEmail = ({
 }: LoginEmailProps) => (
   <Html>
     <Head />
-    <Preview>{'{{TRANSLATION:login-preview:New login detected on}}'} {serverName || '{{TRANSLATION:our-server:our Minecraft server}}'}</Preview>
+    <Preview>{'{{TRANSLATION:preview:New login detected on}}'}</Preview>
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
@@ -48,15 +48,17 @@ export const LoginEmail = ({
                 src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
-                alt={'{{serverName}}'}
+                alt={'{{websiteName}}'}
                 className="mx-auto my-0 rounded-lg"
               />
             </Section>
           )}
-          {serverName && (
-            <Heading className="mx-0 my-0 mb-[8px] p-0 text-left text-[28px] font-bold text-gray-900">
-              {'{{serverName}}'}
-            </Heading>
+          {websiteName && (
+            <Section className="mb-[8px] text-center">
+              <Heading className="mx-0 my-0 p-0 text-center text-[28px] font-bold text-gray-900">
+                {'{{websiteName}}'}
+              </Heading>
+            </Section>
           )}
           <Heading className={`mx-0 my-[32px] p-0 text-left text-[24px] font-semibold ${suspiciousActivity ? 'text-red-600' : 'text-gray-800'}`}>
             {suspiciousActivity ? '{{TRANSLATION:suspicious-login:⚠️ Suspicious Login Detected}}' : '{{TRANSLATION:new-login:New Login Detected}}'}
@@ -109,12 +111,6 @@ export const LoginEmail = ({
           </Text>
           <Section className="mt-[40px] border-t border-gray-200 pt-[24px]">
             <Text className="text-left text-[12px] leading-[18px] text-gray-500">
-              {serverName && (
-                <>
-                  {'{{TRANSLATION:email-sent-by:This email was sent by}}'} <strong className="text-gray-700">{'{{serverName}}'}</strong>.
-                  <br />
-                </>
-              )}
               {'{{TRANSLATION:security-support:For security concerns, please contact our support team immediately.}}'}
             </Text>
           </Section>
@@ -126,7 +122,7 @@ export const LoginEmail = ({
 
 LoginEmail.PreviewProps = {
   username: 'Steve',
-  serverName: 'MyMinecraft Server',
+  websiteName: 'MyMinecraft Server',
   websiteLogo: `${baseUrl}/static/server-logo.png`,
   loginTime: '2024-01-15 14:30:00 UTC',
   loginLocation: 'Istanbul, Turkey',

@@ -14,7 +14,7 @@ import {
 
 interface ResetPasswordEmailProps {
   username?: string;
-  serverName?: string;
+  websiteName?: string;
   websiteLogo?: string;
   resetLink?: string;
   resetCode?: string;
@@ -27,7 +27,7 @@ const baseUrl = process.env.VERCEL_URL
 
 export const ResetPasswordEmail = ({
   username,
-  serverName,
+  websiteName,
   websiteLogo,
   resetLink,
   resetCode,
@@ -35,25 +35,27 @@ export const ResetPasswordEmail = ({
 }: ResetPasswordEmailProps) => (
   <Html>
     <Head />
-    <Preview>Reset your password on {serverName || 'our Minecraft server'}</Preview>
+    <Preview>{'{{TRANSLATION:preview:Reset your password on}}'}</Preview>
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
           {websiteLogo && (
             <Section className="mb-[32px] text-center">
               <Img
-                src={websiteLogo}
+                src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
-                alt={serverName || 'Server Logo'}
+                alt={'{{websiteName}}'}
                 className="mx-auto my-0 rounded-lg"
               />
             </Section>
           )}
-          {serverName && (
-            <Heading className="mx-0 my-0 mb-[8px] p-0 text-left text-[28px] font-bold text-gray-900">
-              {serverName}
-            </Heading>
+          {websiteName && (
+            <Section className="mb-[8px] text-center">
+              <Heading className="mx-0 my-0 p-0 text-center text-[28px] font-bold text-gray-900">
+                {'{{websiteName}}'}
+              </Heading>
+            </Section>
           )}
           <Heading className="mx-0 my-[32px] p-0 text-left text-[24px] font-semibold text-gray-800">
             {'{{TRANSLATION:reset-password:Reset Your Password}}'}
@@ -67,7 +69,7 @@ export const ResetPasswordEmail = ({
           <Section className="my-[32px] text-center">
             <Button
               className="rounded-lg bg-[#55C55A] px-8 py-4 text-center text-[16px] font-semibold text-white no-underline shadow-md"
-              href={resetLink}
+              href={'{{resetLink}}'}
             >
               {'{{TRANSLATION:reset-password-button:Reset Password}}'}
             </Button>
@@ -79,7 +81,7 @@ export const ResetPasswordEmail = ({
               </Text>
               <Section className="my-[24px] rounded-lg bg-gray-50 p-[20px] text-center">
                 <code className="text-[18px] font-mono font-bold text-gray-900">
-                  {resetCode}
+                  {'{{resetCode}}'}
                 </code>
               </Section>
             </>
@@ -89,7 +91,7 @@ export const ResetPasswordEmail = ({
               {'{{TRANSLATION:expiration-notice:⏰ Expiration Notice}}'}
             </Text>
             <Text className="m-0 text-[14px] leading-[20px] text-yellow-800">
-              {'{{TRANSLATION:reset-password-expires:This password reset link will expire in}}'} {expiresIn || '{{TRANSLATION:1-hour:1 hour}}'}.
+              {'{{TRANSLATION:reset-password-expires:This password reset link will expire in}}'}
             </Text>
           </Section>
           <Text className="mt-[32px] text-[14px] leading-[20px] text-gray-500">
@@ -100,12 +102,6 @@ export const ResetPasswordEmail = ({
           </Text>
           <Section className="mt-[40px] border-t border-gray-200 pt-[24px]">
             <Text className="text-left text-[12px] leading-[18px] text-gray-500">
-              {serverName && (
-                <>
-                  This email was sent by <strong className="text-gray-700">{serverName}</strong>.
-                  <br />
-                </>
-              )}
               {'{{TRANSLATION:support-contact:If you have any questions, please contact our support team.}}'}
             </Text>
           </Section>
@@ -117,7 +113,7 @@ export const ResetPasswordEmail = ({
 
 ResetPasswordEmail.PreviewProps = {
   username: 'Steve',
-  serverName: 'MyMinecraft Server',
+  websiteName: 'MyMinecraft Server',
   websiteLogo: `${baseUrl}/static/server-logo.png`,
   resetLink: 'https://example.com/reset-password?token=abc123',
   resetCode: 'ABC123XYZ',

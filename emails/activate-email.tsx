@@ -15,10 +15,11 @@ import {
 
 interface ActivationEmailProps {
   username?: string;
-  serverName?: string;
+  websiteName?: string;
   websiteLogo?: string;
   activationLink?: string;
   activationCode?: string;
+  email?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -27,14 +28,15 @@ const baseUrl = process.env.VERCEL_URL
 
 export const ActivationEmail = ({
   username,
-  serverName,
+  websiteName,
   websiteLogo,
   activationLink,
   activationCode,
+  email,
 }: ActivationEmailProps) => (
   <Html>
     <Head />
-    <Preview>{'{{TRANSLATION:activation-preview:Activate your account on}}'} {serverName || '{{TRANSLATION:our-server:our Minecraft server}}'}</Preview>
+    <Preview>{'{{TRANSLATION:preview:Activate your e-mail}}'}</Preview>
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
@@ -44,31 +46,33 @@ export const ActivationEmail = ({
                 src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
-                alt={'{{serverName}}'}
+                alt={'{{websiteName}}'}
                 className="mx-auto my-0 rounded-lg"
               />
             </Section>
           )}
-          {serverName && (
-            <Heading className="mx-0 my-0 mb-[8px] p-0 text-left text-[28px] font-bold text-gray-900">
-              {'{{serverName}}'}
-            </Heading>
+          {websiteName && (
+            <Section className="mb-[8px] text-center">
+              <Heading className="mx-0 my-0 p-0 text-center text-[28px] font-bold text-gray-900">
+                {'{{websiteName}}'}
+              </Heading>
+            </Section>
           )}
           <Heading className="mx-0 my-[32px] p-0 text-left text-[24px] font-semibold text-gray-800">
-            {'{{TRANSLATION:activate-account:Activate Your Account}}'}
+            {'{{TRANSLATION:activate-email:Activate Your Account}}'}
           </Heading>
           <Text className="text-[16px] leading-[24px] text-gray-700">
-            {'{{TRANSLATION:hello:Hello}}'} <strong>{'{{username}}'}</strong>,
+            {'{{TRANSLATION:hello-text:Hello}}'} <strong>{'{{username}}'}</strong>,
           </Text>
           <Text className="text-[16px] leading-[24px] text-gray-700">
-            {'{{TRANSLATION:activation-thank-you:Thank you for registering! Please activate your account by clicking the button below to get started:}}'}
+            {'{{TRANSLATION:activation-text:Thank you for registering! Please activate your account by clicking the button below to get started:}}'}
           </Text>
           <Section className="my-[32px] text-center">
             <Button
               className="rounded-lg bg-[#55C55A] px-8 py-4 text-center text-[16px] font-semibold text-white no-underline shadow-md"
               href={'{{activationLink}}'}
             >
-              {'{{TRANSLATION:activate-account-button:Activate Account}}'}
+              {'{{TRANSLATION:activate-email-button:Activate E-mail}}'}: <span className="text-gray-500">{'{{email}}'}</span>
             </Button>
           </Section>
           {activationCode && (
@@ -88,12 +92,6 @@ export const ActivationEmail = ({
           </Text>
           <Section className="mt-[40px] border-t border-gray-200 pt-[24px]">
             <Text className="text-left text-[12px] leading-[18px] text-gray-500">
-              {serverName && (
-                <>
-                  {'{{TRANSLATION:email-sent-by:This email was sent by}}'} <strong className="text-gray-700">{'{{serverName}}'}</strong>.
-                  <br />
-                </>
-              )}
               {'{{TRANSLATION:support-contact:If you have any questions, please contact our support team.}}'}
             </Text>
           </Section>
@@ -105,10 +103,11 @@ export const ActivationEmail = ({
 
 ActivationEmail.PreviewProps = {
   username: 'Steve',
-  serverName: 'MyMinecraft Server',
+  websiteName: 'MyMinecraft Server',
   websiteLogo: `${baseUrl}/static/server-logo.png`,
   activationLink: 'https://example.com/activate?token=abc123',
   activationCode: 'ABC123XYZ',
+  email: 'steve@example.com',
 } as ActivationEmailProps;
 
 export default ActivationEmail;

@@ -14,7 +14,7 @@ import {
 
 interface ChangeEmailEmailProps {
   username?: string;
-  serverName?: string;
+  websiteName?: string;
   websiteLogo?: string;
   newEmail?: string;
   confirmationLink?: string;
@@ -27,7 +27,7 @@ const baseUrl = process.env.VERCEL_URL
 
 export const ChangeEmailEmail = ({
   username,
-  serverName,
+  websiteName,
   websiteLogo,
   newEmail,
   confirmationLink,
@@ -35,7 +35,7 @@ export const ChangeEmailEmail = ({
 }: ChangeEmailEmailProps) => (
   <Html>
     <Head />
-    <Preview>{'{{TRANSLATION:change-email-preview:Confirm your new email address on}}'} {serverName || '{{TRANSLATION:our-server:our Minecraft server}}'}</Preview>
+    <Preview>{'{{TRANSLATION:preview:Confirm your new email address on}}'}</Preview>
     <Tailwind>
       <Body className="mx-auto my-auto px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[600px] p-[40px]">
@@ -45,15 +45,17 @@ export const ChangeEmailEmail = ({
                 src={'{{websiteLogo}}'}
                 width="80"
                 height="80"
-                alt={'{{serverName}}'}
+                alt={'{{websiteName}}'}
                 className="mx-auto my-0 rounded-lg"
               />
             </Section>
           )}
-          {serverName && (
-            <Heading className="mx-0 my-0 mb-[8px] p-0 text-left text-[28px] font-bold text-gray-900">
-              {'{{serverName}}'}
-            </Heading>
+          {websiteName && (
+            <Section className="mb-[8px] text-center">
+              <Heading className="mx-0 my-0 p-0 text-center text-[28px] font-bold text-gray-900">
+                {'{{websiteName}}'}
+              </Heading>
+            </Section>
           )}
           <Heading className="mx-0 my-[32px] p-0 text-left text-[24px] font-semibold text-gray-800">
             {'{{TRANSLATION:confirm-new-email:Confirm New Email Address}}'}
@@ -80,29 +82,11 @@ export const ChangeEmailEmail = ({
               {'{{TRANSLATION:confirm-email-change-button:Confirm Email Change}}'}
             </Button>
           </Section>
-          {confirmationCode && (
-            <>
-              <Text className="mb-[12px] text-center text-[14px] text-gray-600">
-                {'{{TRANSLATION:confirmation-code-instruction:Or, copy and paste this confirmation code:}}'}
-              </Text>
-              <Section className="my-[24px] rounded-lg bg-gray-50 p-[20px] text-center">
-                <code className="text-[18px] font-mono font-bold text-gray-900">
-                  {'{{confirmationCode}}'}
-                </code>
-              </Section>
-            </>
-          )}
           <Text className="mt-[32px] text-[14px] leading-[20px] text-gray-500">
             {'{{TRANSLATION:change-email-expires:This confirmation link will expire in 1 hour. If you didn\'t request this change, please ignore this email and consider securing your account.}}'}
           </Text>
           <Section className="mt-[40px] border-t border-gray-200 pt-[24px]">
             <Text className="text-left text-[12px] leading-[18px] text-gray-500">
-              {serverName && (
-                <>
-                  {'{{TRANSLATION:email-sent-by:This email was sent by}}'} <strong className="text-gray-700">{'{{serverName}}'}</strong>.
-                  <br />
-                </>
-              )}
               {'{{TRANSLATION:support-contact:If you have any questions, please contact our support team.}}'}
             </Text>
           </Section>
@@ -114,7 +98,7 @@ export const ChangeEmailEmail = ({
 
 ChangeEmailEmail.PreviewProps = {
   username: 'Steve',
-  serverName: 'MyMinecraft Server',
+  websiteName: 'MyMinecraft Server',
   websiteLogo: `${baseUrl}/static/server-logo.png`,
   newEmail: 'newemail@example.com',
   confirmationLink: 'https://example.com/confirm-email?token=abc123',
