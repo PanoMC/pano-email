@@ -1,6 +1,8 @@
-# Pano Email Templates
+# Pano Email Layout
 
-Email templates for Minecraft server built with React Email and compiled to Handlebars format.
+The shared layout of every Pano mail, built with React Email and compiled to Handlebars
+(`dist/handlebars/layout.hbs`). It contains no language text; the per-mail texts live in the
+platform's and plugins' `mail-templates/` folders and are editable from the panel.
 
 ## Getting Started
 
@@ -28,14 +30,10 @@ bun run build:handlebars
 
 The templates will be generated in `dist/handlebars/` directory.
 
-## Email Templates
+## Layout slots
 
-- **activation** - Account activation email
-- **banned** - Account suspension notice
-- **change-email** - Email change confirmation
-- **login** - Login notification
-- **register-success** - Registration success welcome
-- **reset-password** - Password reset
+`{{subject}}`, `{{preheader}}`, `{{{content}}}`, `{{buttonLabel}}` + `{{buttonUrl}}`,
+`{{{footer}}}`, `{{websiteLogo}}`, `{{websiteName}}`, `{{websiteUrl}}`, `{{year}}`, `{{locale}}`.
 
 ## Releases
 

@@ -45,8 +45,9 @@ async function buildHandlebars() {
       const element = React.createElement(EmailComponent, previewProps);
       const html = await render(element);
 
-      // Handlebars HTML'i başlat
-      let handlebarsHtml = html;
+      // Handlebars HTML'i başlat. React separates adjacent text nodes with empty `<!-- -->`
+      // comments; they carry nothing in a template, so they are dropped.
+      let handlebarsHtml = html.replace(/<!-- -->/g, '');
       
       // Translation placeholder'larını önce çevir (props değerlerini çevirmeden önce)
       // {{TRANSLATION:key:fallback}} formatını {{#if translation.key}}{{translation.key}}{{else}}fallback{{/if}} formatına çevir
